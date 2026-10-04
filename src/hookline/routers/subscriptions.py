@@ -1,14 +1,15 @@
 """CRUD endpoints for subscriptions."""
 
-from collections.abc import Sequence
+from typing import Annotated
 
-from fastapi import APIRouter, Response, status
+from fastapi import APIRouter, Query, Response, status
 
 from hookline.deps import SubscriptionDep, SubscriptionRepoDep
 from hookline.models import Subscription
 from hookline.schemas import (
     SubscriptionCreate,
     SubscriptionCreated,
+    SubscriptionPage,
     SubscriptionRead,
     SubscriptionUpdate,
 )
@@ -22,12 +23,26 @@ def create_subscription(data: SubscriptionCreate, repo: SubscriptionRepoDep) -> 
     return repo.create(data)
 
 
-@router.get("", response_model=list[SubscriptionRead])
+@router.get("", response_model=SubscriptionPage)
 def list_subscriptions(
-    repo: SubscriptionRepoDep, active: bool | None = None
-) -> Sequence[Subscription]:
-    """List subscriptions, optionally only active or inactive ones."""
-    return repo.find(active=active)
+    repo: SubscriptionRepoDep,
+    active: bool | None = None,
+    target_url: str | None = None,
+    event_type: str | None = None,
+    page: Annotated[int, Query(ge=1)] = 1,
+    size: int = 20,
+) -> SubscriptionPage:
+    """List subscriptions, filtered and paginated.
+
+    ``target_url`` matches any part of the URL; ``event_type`` returns the subscriptions
+    that would receive that event.
+    """
+    items, total = repo.search(
+        active=active, target_url=target_url, event_type=event_type, page=page, size=size
+    )
+    return SubscriptionPage.model_validate(
+        {"items": items, "page": page, "size": size, "total": total}, from_attributes=True
+    )
 
 
 @router.get("/{subscription_id}", response_model=SubscriptionRead)

@@ -58,6 +58,15 @@ class SubscriptionCreated(SubscriptionRead):
     secret: str
 
 
+class SubscriptionPage(BaseModel):
+    """A page of subscriptions, with the total number of matches."""
+
+    items: list[SubscriptionCreated]
+    page: int
+    size: int
+    total: int
+
+
 class EventIn(BaseModel):
     """Body for ``POST /events``."""
 
