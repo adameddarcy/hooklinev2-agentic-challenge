@@ -1,6 +1,14 @@
 # Challenge 2: Customer bug report (about 10 minutes)
 
-The following arrived through the support queue:
+## Ticket
+
+| Field    | Value                                              |
+|----------|----------------------------------------------------|
+| ID       | **HL03**                                          |
+| Type     | Bug (customer-reported)                            |
+| Priority | P1, blocking a customer's order sync               |
+| Reporter | Support, on behalf of Northwind Retail             |
+| Summary  | Webhooks stopped after the subscription was paused |
 
 > **From:** Priya N., platform engineer at Northwind Retail
 > **Subject:** Webhooks stopped after we paused them
@@ -25,9 +33,16 @@ The following arrived through the support queue:
 > Thanks,
 > Priya
 
+**Acceptance criteria**
+- The problem is reproduced, then fixed, and it can't silently come back.
+- There's a short reply to the customer.
+- All checks in `AGENTS.md` pass.
+
 ## Your task
 
-1. Reproduce the problem.
-2. Fix it, and make sure it can't silently come back.
-3. Write a short (2–3 sentence) reply to Priya explaining what happened and anything she
+1. **Create a branch for this ticket** before changing any code. It must be named
+   `HL03_<short_description>`, e.g. `HL03_fix_partial_update`.
+2. Reproduce the problem.
+3. Fix it, and commit your work to your branch. Commit messages must start with `HL03: `.
+4. Write a short (2–3 sentence) reply to Priya explaining what happened and anything she
    needs to do.

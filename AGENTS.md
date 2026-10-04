@@ -22,10 +22,22 @@ uv run pytest                # tests
 uv run pytest --cov          # tests with coverage
 uv run ruff check .          # lint
 uv run ruff format .         # format
-uv run mypy src tests        # type check (strict)
+uv run mypy src tests scripts  # type check (strict)
 ```
 
 All four checks must pass before a change is finished.
+
+## Git workflow
+
+- Work is tracked as tickets `HL[num][num]`. Before changing code for a ticket, create
+  a branch named after it: ticket `HL12` → branch `HL12_<short_description>`
+  (e.g. `HL12_fix_patch_semantics`). GitHub rejects any other branch name on push.
+- Every commit message must start with the ticket ID: `HL12: Short description`. The
+  `commit-msg` hook rejects anything else, including git's default revert and merge
+  messages.
+- Never commit to `main` directly; open a pull request.
+- A pre-commit hook (`.pre-commit-config.yaml`) runs the full test suite on every commit.
+  If it fails, fix the tests. **Never bypass the hooks with `--no-verify`.**
 
 ## Conventions
 
