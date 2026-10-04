@@ -10,7 +10,7 @@
 | Reporter | Engineering lead                                                |
 | Summary  | Review PR "Add filtering and pagination to GET /subscriptions"  |
 
-> A teammate has opened a pull request from `feature/subscription-search`. You're the
+> A teammate has opened a pull request from `HL06_subscription_search` (ticket HL06). You're the
 > required approver. Review it and decide whether it can be merged.
 >
 > **Acceptance criteria**
@@ -25,7 +25,7 @@ If you want to try out the PR's code, check it out locally; don't push to it.
 
 ```bash
 git fetch origin
-git diff main...origin/feature/subscription-search
+git diff main...origin/HL06_subscription_search
 # or: gh pr view --web / gh pr diff / gh pr checkout
 ```
 
