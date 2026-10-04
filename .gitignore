@@ -221,3 +221,6 @@ __marimo__/
 
 # Hookline local database
 hookline.db
+
+# Interview key lives in Notion; never commit a local copy
+.INTERVIEWER.md

@@ -4,6 +4,10 @@ Hookline is a small webhook service. Clients register **subscriptions** (a URL p
 event types they care about), publish **events**, and Hookline delivers each event to every
 matching subscription as a signed HTTP POST, recording every **delivery** attempt.
 
+> **Interviewers:** the interview key (rubric, answers, hints and timings for each
+> challenge) is available here (password protected):
+> [Hookline Interview](https://app.notion.com/p/Hookline-Interview-3ef5cf3c9bcf809186a4f53614a4e146?source=copy_link)
+
 ## Welcome, candidate 👋
 
 Thanks for taking the time to interview with us. This repository is a small but realistic
