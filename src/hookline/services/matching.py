@@ -11,22 +11,13 @@ Event types are dot-separated segments, e.g. ``order.created``. A pattern is eit
 from collections.abc import Iterable
 
 WILDCARD = "*"
-SEPARATOR = "."
 
 
 def event_type_matches(pattern: str, event_type: str) -> bool:
     """Return ``True`` if ``event_type`` is selected by ``pattern``."""
     if pattern == WILDCARD:
         return True
-
-    pattern_parts = pattern.split(SEPARATOR)
-    event_parts = event_type.split(SEPARATOR)
-
-    if pattern_parts[-1] == WILDCARD:
-        prefix = pattern_parts[:-1]
-        return len(event_parts) > len(prefix) and event_parts[: len(prefix)] == prefix
-
-    return pattern_parts == event_parts
+    return event_type.startswith(pattern.removesuffix(WILDCARD))
 
 
 def matches_any(patterns: Iterable[str], event_type: str) -> bool:
