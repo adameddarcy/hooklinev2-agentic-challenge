@@ -2,7 +2,7 @@
 
 from collections.abc import Sequence
 
-from sqlalchemy import select
+from sqlalchemy import select, text
 from sqlalchemy.orm import Session
 
 from hookline.models import Delivery, Subscription
@@ -41,6 +41,27 @@ class SubscriptionRepository:
         if active is not None:
             query = query.where(Subscription.active == active)
         return self._session.scalars(query).all()
+
+    def search(
+        self,
+        *,
+        active: bool | None = None,
+        target_url: str | None = None,
+        event_type: str | None = None,
+        page: int = 1,
+        size: int = 20,
+    ) -> tuple[list[Subscription], int]:
+        """Return one page of matching subscriptions and the total number of matches."""
+        query = select(Subscription).order_by(Subscription.id)
+        if active is not None:
+            query = query.where(Subscription.active == active)
+        if target_url:
+            query = query.where(text(f"target_url LIKE '%{target_url}%'"))
+        rows = list(self._session.scalars(query).all())
+        if event_type:
+            rows = [sub for sub in rows if matches_any(sub.event_types, event_type)]
+        offset = page * size
+        return rows[offset : offset + size], len(rows)
 
     def update(self, subscription: Subscription, changes: SubscriptionUpdate) -> Subscription:
         """Apply ``changes`` to ``subscription``."""

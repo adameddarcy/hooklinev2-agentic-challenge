@@ -276,7 +276,7 @@ Design rules:
 |----------|-----------------------|-------------------------------------------------------|
 | `GET`    | `/health`             | Liveness check                                        |
 | `POST`   | `/subscriptions`      | Create a subscription (returns the secret once)       |
-| `GET`    | `/subscriptions`      | List subscriptions (`?active=true\|false`)            |
+| `GET`    | `/subscriptions`      | Search subscriptions (`?active=&target_url=&event_type=&page=&size=`) |
 | `GET`    | `/subscriptions/{id}` | Fetch a subscription                                  |
 | `PATCH`  | `/subscriptions/{id}` | Partially update a subscription                       |
 | `DELETE` | `/subscriptions/{id}` | Delete a subscription and its deliveries              |
